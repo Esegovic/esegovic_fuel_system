@@ -14,6 +14,15 @@
 
 </div>
 
+
+
+## Usage
+
+```
+local vehicle = cache.vehicle or GetPlayersLastVehicle()
+local fuel = Entity(vehicle).state.fuel or GetVehicleFuelLevel(vehicle)
+```
+
 ## Requirements
 
 - [ox_lib](https://github.com/overextended/ox_lib)
