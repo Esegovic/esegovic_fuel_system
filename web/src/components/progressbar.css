@@ -1,0 +1,32 @@
+.battery {
+  padding: 10px 10px;
+  width: 340px;
+  border: solid thin rgba(255, 255, 255, 0.1);
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.battery:after {
+  content: " ";
+  top: 15px;
+  right: -7px;
+  height: 20px;
+  width: 7px;
+  position: absolute;
+  background: var(--mainColor);
+}
+
+.bar {
+  cursor: none;
+  display: inline-block;
+  width: 0;
+  border: solid thin rgba(255, 255, 255, 0.1);
+  padding: 14px;
+  height: 30px;
+  background: transparent;
+  transition: background 1s;
+}
+
+.bar.active {
+  background: var(--mainColor);
+}

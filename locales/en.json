@@ -1,0 +1,22 @@
+{
+  "fuel_station_notify_label": "Gas Station",
+  "fuel_station_no_money": "You don`t have enough money.",
+  "fuel_station_pay": "You payed: %s$ for %sL of %s.",
+  "fuel_station_blip": "Gas Station",
+  "electro_station_blip": "Charging Station",
+  "player_in_car": "Exit vehicle to fuel a car",
+  "player_in_car_electro": "Exit vehicle to charge a car",
+  "player_interaction": "[~r~E~w~] Fuel",
+  "player_interaction_electro": "[~r~E~w~] Charge",
+  "fueling": "FUELING. . .",
+  "charging": "CHARGING. . .",
+  "not_same_fuel_type": "You cannot fuel car with wrong fuel. This car only support %s.",
+  "fuel_station_jerrycan": "You bought %s Jerrycan for %s$.",
+  "fuel_station_no_money_jerrycan": "You dont have enough money to buy Jerry Can.",
+  "fuel_station_pay_charge": "You payed: %s$ for %skwH.",
+  "fuel_station_no_money_chrage": "You dont have enough money to charge a vehicle.",
+  "3d_veh_chraging": "Battery Level: ",
+  "veh_charge_start": "Vehicle is being charged.",
+  "veh_charge_done": "Vehicle is charged to 100%.",
+  "veh_100%": "Vehicle is already on 100% Battery Level."
+}

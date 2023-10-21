@@ -1,0 +1,170 @@
+.app-gas-station {
+  height: 100vh;
+  background-color: #091322a6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #ffffffb2;
+  font-weight: 300;
+  font-size: 0.8rem;
+  text-shadow: 2px 2px 4px #ffffff33;
+}
+
+h1 {
+  position: absolute;
+  top: 5%;
+  width: 100%;
+  text-align: center;
+  padding-top: 2rem;
+  font-weight: 900;
+  font-size: 2.5rem;
+  color: white;
+}
+
+h3 {
+  position: absolute;
+  top: 15%;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.app-gas-station__buttons-container {
+  position: absolute;
+  top: 15rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.app-gas-station__buttons-container button {
+  background-color: rgba(145, 145, 145, 0.3);
+  border: 0.1rem solid white;
+  outline: none;
+  border-radius: 0.25rem;
+  padding: 0.8rem 1.6rem;
+  color: white;
+  opacity: 0.5;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.app-gas-station__buttons-container button:hover {
+  transition: 0.3s;
+  background-color: rgba(255, 255, 255, 0.3);
+  scale: 1.05;
+}
+
+#active {
+  opacity: 1;
+}
+
+.app-gas-station__center-container {
+  width: 30%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.app-gas-station__slider {
+  width: 80%;
+  margin-top: 2rem;
+}
+
+.app-gas-station__center-container__sliderUpper-desc {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-gas-station__center-container__sliderUpper-desc span {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.app-gas-station__slider-desc {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-gas-station__slider-desc p {
+  font-size: 1rem;
+}
+
+.app-gas-station__slider-desc span {
+  font-weight: 500;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.app-gas-station__fuel-managment {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 0rem;
+  font-size: 0.8rem;
+}
+.app-gas-station__fuel-managment span {
+  font-weight: 700;
+  color: white;
+  font-size: 1.7rem;
+  padding: 0rem 0.2rem;
+}
+
+.app-gas-station__left-container-sidebar {
+  position: absolute;
+  top: 25%;
+  left: 33.3%;
+  width: 1.5rem;
+  text-align: center;
+  height: 40%;
+  border-left: 0.15rem solid rgba(255, 255, 255, 0.2);
+  writing-mode: tb-rl;
+  transform: rotate(-180deg);
+}
+
+.app-gas-station__left-container-sidebar span {
+  font-weight: 700;
+  color: white;
+  font-size: 1rem;
+  padding: 0rem 0.2rem;
+}
+
+.app-gas-station__payment-methods {
+  display: flex;
+  gap: 2rem;
+  margin-top: 10%;
+}
+
+.app-gas-station__payment-methods button p {
+  margin-left: 0.5rem;
+}
+
+.app-gas-station__payment-methods button {
+  padding: 1rem 2rem;
+  background-color: var(--mainColor);
+  border: none;
+  outline: none;
+  border-radius: 0.2rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: #fff;
+  opacity: 0.6;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.app-gas-station__payment-methods button:hover {
+  opacity: 1;
+  scale: 1.05;
+  transition: 0.3s;
+}

@@ -1,0 +1,104 @@
+.fuel-can__container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  gap: 1rem;
+  text-shadow: 2px 2px 4px #ffffff33;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+.fuel-can__container-content {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 2rem;
+  color: var(--textColor);
+}
+
+.fuel-can__container-content h4 {
+  font-size: 1rem;
+  padding: 1.5rem 0rem;
+}
+
+.fuel-can__container-content span {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 1.5rem 0rem;
+  color: white;
+}
+
+#image-red-filter {
+  filter: drop-shadow(0 0 15px #b33c3c);
+}
+
+#image-blue-filter {
+  filter: drop-shadow(0 0 15px var(--mainColor));
+}
+
+.fuel-can__container-content img {
+  width: 150px;
+  opacity: 0.8;
+}
+
+.fuel-can__container-diesel {
+  width: 20%;
+  border: 0.15rem solid rgba(255, 255, 255, 0.2);
+  height: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 0.25rem;
+  transition: 0.3s;
+}
+
+.fuel-can__container-petrol {
+  width: 20%;
+  border: 0.15rem solid rgba(255, 255, 255, 0.2);
+  height: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 0.25rem;
+  transition: 0.3s;
+}
+
+.fuel-can__container-diesel:hover,
+.fuel-can__container-petrol:hover {
+  transition: 0.3s;
+  background-color: rgba(68, 68, 68, 0.1);
+  cursor: pointer;
+}
+
+#close-fuel-can {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem 4rem;
+  background-color: var(--mainColor);
+  border: none;
+  outline: none;
+  border-radius: 0.2rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: #fff;
+  opacity: 0.6;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+#close-fuel-can:hover {
+  opacity: 1;
+  transition: 0.3s;
+}
