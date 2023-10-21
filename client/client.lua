@@ -357,3 +357,6 @@ CreateThread(function ()
         playerLoaded = true
     end
 end)
+
+
+-- TODO: Jerry Can Items Usage
