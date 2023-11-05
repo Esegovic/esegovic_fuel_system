@@ -6,6 +6,7 @@ Config = {
     ChargingPrice = 3, --@param int (per 10 sec)
     ShowBlips = true, --@param boolean
     ManageFuel = true, --@param boolean
+    JerryCanFuelingTime = 12, --@param int (in sec)
 }
 
 Fuel_Consumption = {

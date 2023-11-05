@@ -36,6 +36,30 @@ Entity(vehicle).state.fuel = fuelAmount
 
 ## Installation
 
+Add items in _ox_inventory\data\items.lua_
+
+```
+['jerrycan_petrol'] = {
+		label = 'Petrol Can',
+		weight = 2500,
+		stack = false,
+		close = true,
+		client = {
+			export = 'esegovic_fuel_system.jerrycan_petrol'
+		}
+	},
+
+	['jerrycan_diesel'] = {
+		label = 'Diesel Can',
+		weight = 2500,
+		stack = false,
+		close = true,
+		client = {
+			export = 'esegovic_fuel_system.jerrycan_diesel'
+		}
+	}
+```
+
 Download the latest releases and put them in your `resources` folder.
 
 ## Additional Notes

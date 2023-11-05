@@ -4,6 +4,8 @@ lib.locale()
 
 local isFueling, isCharging, nearestGasStation, nearestDistance, currentPercentage = false, false, nil, 30, 0;
 local lastVehicle = cache.vehicle or GetPlayersLastVehicle()
+local playerLoaded = false
+local chargingTime = 0
 
 local function createBlip(loc, type)
     if type then
@@ -130,8 +132,6 @@ local function fuelingProcess(liters)
 	end)
 end
 
-local chargingTime = 0
-
 local function CountAndStopCharging()
     while currentPercentage < 100 do
         Wait(1000)
@@ -177,6 +177,23 @@ local function ChargeVehicle(kWh)
         DrawTextOnScreen(locale('3d_veh_chraging')..currentPercentage.."%", 0.5, 255, 255, 255, 255)
     end
 end
+
+
+CreateThread(function ()
+    while not playerLoaded do
+        Wait(500)
+        SendNUIMessage({
+            action = 'init',
+            data = {
+                petrolPrice = Config.PetrolPrice,
+                dieselPrice = Config.DieselPrice,
+                petrolCanPrice = Config.PetrolCanPrice,
+                dieselCanPrice = Config.DieselCanPrice
+            }
+        })
+        playerLoaded = true
+    end
+end)
 
 RegisterNUICallback('payment', function(data, cb)
     local paymentMethod = data._paymentType;
@@ -341,22 +358,187 @@ Citizen.CreateThread(function()
 	end
 end)
 
-local playerLoaded = false
-CreateThread(function ()
-    while not playerLoaded do
-        Wait(500)
-        SendNUIMessage({
-            action = 'init',
-            data = {
-                petrolPrice = Config.PetrolPrice,
-                dieselPrice = Config.DieselPrice,
-                petrolCanPrice = Config.PetrolCanPrice,
-                dieselCanPrice = Config.DieselCanPrice
-            }
-        })
-        playerLoaded = true
+
+
+local function getVehicleInFront()
+    local player = PlayerPedId()
+    local playerPos = GetEntityCoords(player, false)
+    local playerForwardVector = GetEntityForwardVector(player)
+    local playerFrontPos = playerPos + playerForwardVector * 3.0 -- Adjust the distance as needed
+
+    local rayHandle = StartShapeTestRay(playerPos, playerFrontPos, 10, player, 0)
+    local _, _, _, _, vehicle = GetShapeTestResult(rayHandle)
+
+    if IsEntityAVehicle(vehicle) then
+        return vehicle
+    else
+        return nil
+    end
+end
+
+local bones = {
+	'petrolcap',
+	'petroltank',
+	'petroltank_l'
+}
+
+local function getCapBoneIndex(vehicle)
+	for i = 1, #bones do
+		local boneIndex = GetEntityBoneIndexByName(vehicle, bones[i])
+
+		if boneIndex ~= -1 then
+			return boneIndex
+		end
+	end
+end
+
+exports('jerrycan_petrol', function(data, slot)
+    local vehicle = getVehicleInFront()
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
+    local vehicleFuel = Entity(vehicle).state.fuel or GetVehicleFuelLevel(vehicle)
+    local vehicleFuelType = Entity(vehicle).state.fuelType
+    local state = Entity(vehicle).state
+
+    if vehicleFuelType == 'Diesel' then
+        lib.notify({
+            type = 'error',
+            label = locale('fuel_station_notify_label'),
+            description = locale('jerry_can_wrong_fuel', vehicleFuelType)}
+        )
+        return
+    end
+    
+    if not vehicle then 
+        lib.notify({
+            type = 'error',
+            label = locale('fuel_station_notify_label'),
+            description = locale('far_away_jerry')}
+        )
+        return
+    end
+
+    if vehicleFuel > 75 then
+        lib.notify({
+            type = 'error',
+            label = locale('fuel_station_notify_label'),
+            description = locale('jerry_can_veh_75%')}
+        )
+        return
+    end
+    
+    local bone = getCapBoneIndex(vehicle)
+    local fuelcapPosition = GetWorldPositionOfEntityBone(vehicle, bone)
+    local duration = Config.JerryCanFuelingTime * 1000
+
+    if fuelcapPosition and #(playerCoords - fuelcapPosition) < 1.8 then
+        TaskTurnPedToFaceEntity(cache.ped, vehicle, duration)
+	    Wait(500)
+	    CreateThread(function()
+	    	lib.progressCircle({
+	    		duration = duration,
+	    		useWhileDead = false,
+	    		canCancel = false,
+	    		disable = {
+	    			move = true,
+	    			car = true,
+	    			combat = true,
+	    		},
+	    		anim = {
+	    			dict = 'weapon@w_sp_jerrycan',
+	    			clip = 'fire',
+	    		},
+                prop = {
+                    model = `w_am_jerrycan`,
+                    pos = vec3(0.03, 0.03, -0.22),
+                    rot = vec3(0.0, 120.0, -22.5),
+                    bone = 57005,
+                }
+	    	})
+	    end)
+
+        setFuel(state, vehicle, vehicleFuel + 25)
+    else
+        lib.notify({
+            type = 'error',
+            label = locale('fuel_station_notify_label'),
+            description = locale('far_away_cap')}
+        )
+        return
     end
 end)
 
+exports('jerrycan_diesel', function(data, slot)
+    local vehicle = getVehicleInFront()
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
+    local vehicleFuel = Entity(vehicle).state.fuel or GetVehicleFuelLevel(vehicle)
+    local vehicleFuelType = Entity(vehicle).state.fuelType
+    local state = Entity(vehicle).state
 
--- TODO: Jerry Can Items Usage
+    if vehicleFuelType == 'Petrol' then
+        lib.notify({
+            type = 'error',
+            label = locale('fuel_station_notify_label'),
+            description = locale('jerry_can_wrong_fuel', vehicleFuelType)}
+        )
+        return
+    end
+    
+    if not vehicle then 
+        lib.notify({
+            type = 'error',
+            label = locale('fuel_station_notify_label'),
+            description = locale('far_away_jerry')}
+        )
+        return
+    end
+
+    if vehicleFuel > 75 then
+        lib.notify({
+            type = 'error',
+            label = locale('fuel_station_notify_label'),
+            description = locale('jerry_can_veh_75%')}
+        )
+        return
+    end
+    
+    local bone = getCapBoneIndex(vehicle)
+    local fuelcapPosition = GetWorldPositionOfEntityBone(vehicle, bone)
+    local duration = Config.JerryCanFuelingTime * 1000
+    if fuelcapPosition and #(playerCoords - fuelcapPosition) < 1.8 then
+        TaskTurnPedToFaceEntity(cache.ped, vehicle, duration)
+	    Wait(500)
+	    CreateThread(function()
+	    	lib.progressCircle({
+	    		duration = duration,
+	    		useWhileDead = false,
+	    		canCancel = false,
+	    		disable = {
+	    			move = true,
+	    			car = true,
+	    			combat = true,
+	    		},
+	    		anim = {
+	    			dict = 'weapon@w_sp_jerrycan',
+	    			clip = 'fire',
+	    		},
+                prop = {
+                    model = `w_am_jerrycan`,
+                    pos = vec3(0.03, 0.03, -0.22),
+                    rot = vec3(0.0, 120.0, -22.5),
+                    bone = 57005,
+                }
+	    	})
+	    end)
+
+        setFuel(state, vehicle, vehicleFuel + 25)
+    else
+        lib.notify({
+            type = 'error',
+            label = locale('fuel_station_notify_label'),
+            description = locale('far_away_cap')}
+        )
+        return
+    end
+end)

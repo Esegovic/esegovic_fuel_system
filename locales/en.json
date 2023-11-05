@@ -18,5 +18,9 @@
   "3d_veh_chraging": "Battery Level: ",
   "veh_charge_start": "Vehicle is being charged.",
   "veh_charge_done": "Vehicle is charged to 100%.",
-  "veh_100%": "Vehicle is already on 100% Battery Level."
+  "veh_100%": "Vehicle is already on 100% Battery Level.",
+  "jerry_can_wrong_fuel": "Your vehicle only can be fueled with %s Jerry Can.",
+  "far_away_jerry": "You are too far away from vehicle.",
+  "far_away_cap": "You are too far away from Fuel Cap.",
+  "jerry_can_veh_75%": "Jerry can cannot be used becouse vehicle have more then 3/4 Fuel already."
 }

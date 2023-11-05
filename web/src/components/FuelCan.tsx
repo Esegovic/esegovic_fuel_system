@@ -33,7 +33,7 @@ const FuelCan: React.FC<FuelCanProps> = ({
           className='fuel-can__container-diesel'
           onClick={() => buyFuelCan("diesel")}
         >
-          <h4>Diesel Can 50L</h4>
+          <h4>Diesel Can 25L</h4>
           <img src={dieselCanImg} id='image-blue-filter' alt='Petrol Can' />
           <span>{petrolCanPrice}$</span>
         </div>
@@ -41,7 +41,7 @@ const FuelCan: React.FC<FuelCanProps> = ({
           className='fuel-can__container-petrol'
           onClick={() => buyFuelCan("petrol")}
         >
-          <h4>Petrol Can 50L</h4>
+          <h4>Petrol Can 25L</h4>
           <img src={petrolCanImg} id='image-red-filter' alt='Diesel Can' />
           <span>{dieselCanPrice}$</span>
         </div>
